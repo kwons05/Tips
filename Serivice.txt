@@ -1,0 +1,27 @@
+https://learn.microsoft.com/ko-kr/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-8.0&tabs=visual-studio
+
+
+# 서비스 등록
+1. NuGet 패키지 Microsoft.Extensions.Hosting.WindowsServices를 설치
+2. AddWindowsService 호출
+
+// Program.cs
+builder.Services.AddWindowsService();
+
+3. sc create [서비스명] binpath= [서비스 파일 경로]
+
+
+# Path 
+
+// Program.cs
+Environment.SetEnvironmentVariable("BASEDIR", AppDomain.CurrentDomain.BaseDirectory);
+
+// setting.json
+        "Args": {
+          "path": "%BASEDIR%/Applogs/applog-.log",
+          "rollingInterval": "Day",
+          "retainedFileCountLimit": "180"
+        }
+
+// *.cs
+BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;

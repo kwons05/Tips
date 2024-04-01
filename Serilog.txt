@@ -1,0 +1,28 @@
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "Console"
+            }
+          ]
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "Applogs/applog-.log",
+          "rollingInterval": "Day",
+          "retainedFileCountLimit": "180"
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName" ],
+    "Properties": {
+      "Application": "Grpc Server App"
+    }
+  },
